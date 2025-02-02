@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"os"
 )
 
 /* //еще один возможный вариант
@@ -25,8 +26,11 @@ func main() {
 	//http.HandleFunc(`/`, mainHandle)
 	// Устанавливаем обработчик для корневого URL
 	http.Handle("/", http.FileServer(http.Dir(webDir)))
-
-	err := http.ListenAndServe(":7540", nil)
+	envPort := os.Getenv("TODO_PORT")
+	if envPort == "" {
+		envPort = "7540"
+	}
+	err := http.ListenAndServe(":"+envPort, nil)
 	if err != nil {
 		panic(err)
 	}
