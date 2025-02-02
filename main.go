@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"path/filepath"
 )
 
+/* //еще один возможный вариант
 func mainHandle(res http.ResponseWriter, req *http.Request) {
 	var filePath string
 
@@ -16,20 +16,19 @@ func mainHandle(res http.ResponseWriter, req *http.Request) {
 	}
 	http.ServeFile(res, req, filePath)
 
-}
+}*/
+
+const webDir = "./web"
 
 func main() {
 	fmt.Println("Запускаем сервер")
-	/*http.HandleFunc(`/`, mainHandle)
+	//http.HandleFunc(`/`, mainHandle)
+	// Устанавливаем обработчик для корневого URL
+	http.Handle("/", http.FileServer(http.Dir(webDir)))
+
 	err := http.ListenAndServe(":7540", nil)
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println("Завершаем работу")*/
-	go func() {
-		err := http.ListenAndServe(":7540", nil)
-		if err != nil {
-			panic(err)
-		}
-	}()
+	fmt.Println("Завершаем работу")
 }
