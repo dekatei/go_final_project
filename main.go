@@ -32,8 +32,8 @@ func main() {
 	if envPort == "" {
 		envPort = "7540"
 	}
-
-	base.CreateTable()
+	envDBFILE := os.Getenv("TODO_DBFILE")
+	base.CreateTable(envDBFILE)
 	err := http.ListenAndServe(":"+envPort, nil)
 	if err != nil {
 		panic(err)

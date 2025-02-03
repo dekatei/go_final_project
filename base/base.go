@@ -10,12 +10,18 @@ import (
 	_ "modernc.org/sqlite"
 )
 
-func CreateTable() {
-	appPath, err := os.Getwd() //не смогла реализовать через os.Executable()
-
-	if err != nil {
-		log.Fatal(err)
+func CreateTable(envDBFILE string) {
+	var appPath string
+	var err error
+	if envDBFILE != "" {
+		appPath = envDBFILE
+	} else {
+		appPath, err = os.Getwd() //не смогла реализовать через os.Executable()
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
+
 	dbFile := filepath.Join(appPath, "scheduler.db")
 	_, err = os.Stat(dbFile)
 
