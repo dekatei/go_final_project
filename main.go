@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+
+	"main.go/base"
 )
 
 /* //еще один возможный вариант
@@ -30,6 +32,8 @@ func main() {
 	if envPort == "" {
 		envPort = "7540"
 	}
+
+	base.CreateTable()
 	err := http.ListenAndServe(":"+envPort, nil)
 	if err != nil {
 		panic(err)
